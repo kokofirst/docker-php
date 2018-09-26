@@ -1,1 +1,2 @@
-# phpdocker
+# docker-php
+dockerfile for php
