@@ -57,9 +57,9 @@ RUN apt-get update \
     && apt-get install -y libmcrypt-dev \
     && docker-php-ext-install mcrypt \
     && :\
-    & apt-get install -y curl \
-    & apt-get install -y libcurl3 \
-    & apt-get install -y libcurl4-openssl-dev \
+    && apt-get install -y curl \
+    && apt-get install -y libcurl3 \
+    && apt-get install -y libcurl4-openssl-dev \
     && docker-php-ext-install curl
     #&& :\
     #&& apt-get install -y libreadline-dev \
@@ -117,7 +117,13 @@ RUN pecl install redis-3.1.4 \
     && apt-get install -y libmagickwand-dev \
     && pecl install imagick-3.4.3 \
     && docker-php-ext-enable imagick \
-#    && :\
-#    && apt-get install -y libmemcached-dev zlib1g-dev \
-#    && pecl install memcached-2.2.0 \
-#    && docker-php-ext-enable memcached
+    && :\
+    && apt-get install -y libmemcached-dev zlib1g-dev \
+    && pecl install memcached-2.2.0 \
+    && docker-php-ext-enable memcached
+
+COPY ./zend-loader-php5.6-linux-x86_64_update1.tar.gz /tmp/zend-loader.tar.gz
+RUN mkdir -p /usr/local/zend-loader \
+    && tar -xf /tmp/zend-loader.tar.gz -C /usr/local/zend-loader --strip-components=1 \
+    && rm /tmp/zend-loader.tar.gz
+COPY ./docker-php-ext-zendloader.ini /usr/local/etc/php/conf.d/docker-php-ext-zendloader.ini
