@@ -117,9 +117,13 @@ RUN pecl install redis-3.1.4 \
     && apt-get install -y libmagickwand-dev \
     && pecl install imagick-3.4.3 \
     && docker-php-ext-enable imagick \
-#    && :\
-#    && apt-get install -y libmemcached-dev zlib1g-dev \
-#    && pecl install memcached-2.2.0 \
-#    && docker-php-ext-enable memcached
+    && :\
+    && apt-get install -y libmemcached-dev zlib1g-dev \
+    && pecl install memcached-2.2.0 \
+    && docker-php-ext-enable memcached
 
-WORKDIR /data/wwwroot
+COPY ./zend-loader-php5.6-linux-x86_64_update1.tar.gz /tmp/zend-loader.tar.gz
+RUN mkdir -p /usr/local/zend-loader \
+    && tar -xf /tmp/zend-loader.tar.gz -C /usr/local/zend-loader --strip-components=1 \
+    && rm /tmp/zend-loader.tar.gz
+COPY ./docker-php-ext-zendloader.ini /usr/local/etc/php/conf.d/docker-php-ext-zendloader.ini
