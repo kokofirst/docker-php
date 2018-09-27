@@ -1,4 +1,4 @@
-FROM php:5.6-fpm
+FROM kokofirst/docker-php:5.6-fpm
 
 # Extensions: ctype, dom, fileinfo, ftp, hash, iconv, json, pdo, pdo_sqlite, session,
 # tokenizer, simplexml, xml, xmlreader, xmlwriter and phar are bundled and compiled into
@@ -121,5 +121,3 @@ RUN pecl install redis-3.1.4 \
 #    && apt-get install -y libmemcached-dev zlib1g-dev \
 #    && pecl install memcached-2.2.0 \
 #    && docker-php-ext-enable memcached
-
-WORKDIR /data/wwwroot
