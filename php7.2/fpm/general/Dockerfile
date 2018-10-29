@@ -96,6 +96,21 @@ RUN apt-get update \
     #&& docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
     #&& docker-php-ext-install ldap \
 
+RUN pecl install redis \
+    && docker-php-ext-enable redis \
+    && :\
+    && apt-get install -y libmagickwand-dev \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick \
+    && :\
+    && apt-get install -y libmemcached-dev zlib1g-dev \
+    && pecl install memcached \
+    && docker-php-ext-enable memcached \
+	&& :\
+	&& apt-get install -y librabbitmq-dev \
+	&& pecl install amqp \
+	&& docker-php-ext-enable amqp
+
 # Composer
 RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');" \
     && php composer-setup.php \
@@ -103,11 +118,3 @@ RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.ph
     && mv composer.phar /bin/composer \
     && composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
-# Install Redis extension from source
-COPY ./redis-4.1.0.tgz /tmp/redis.tgz
-RUN mkdir -p /tmp/redis \
-    && tar -xf /tmp/redis.tgz -C /tmp/redis --strip-components=1 \
-    && rm /tmp/redis.tgz \
-    && docker-php-ext-configure /tmp/redis --enable-redis \
-    && docker-php-ext-install /tmp/redis \
-    && rm -r /tmp/redis
