@@ -97,11 +97,11 @@ RUN apt-get update \
     #&& docker-php-ext-install ldap \
 
 # Composer
-RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');" \
-    && php composer-setup.php \
-    && php -r "unlink('composer-setup.php');" \
-    && mv composer.phar /bin/composer \
-    && composer config -g repo.packagist composer https://packagist.phpcomposer.com
+#RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');" \
+#    && php composer-setup.php \
+#    && php -r "unlink('composer-setup.php');" \
+#    && mv composer.phar /bin/composer \
+#    && composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
 # Install extension using pecl
 # Notice: if pecl install get error
@@ -111,16 +111,16 @@ RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.ph
 # Please turn on proxy (The proxy IP may be docker host IP or others):
 #RUN pear config-set http_proxy http://10.0.75.1:1080
 
-RUN pecl install redis-3.1.4 \
+RUN pecl install redis \
     && docker-php-ext-enable redis \
     && :\
     && apt-get install -y libmagickwand-dev \
-    && pecl install imagick-3.4.3 \
-    && docker-php-ext-enable imagick \
-    && :\
-    && apt-get install -y libmemcached-dev zlib1g-dev \
-    && pecl install memcached-2.2.0 \
-    && docker-php-ext-enable memcached
+    && pecl install imagick \
+    && docker-php-ext-enable imagick
+#    && :\
+#    && apt-get install -y libmemcached-dev zlib1g-dev \
+#    && pecl install memcached-2.2.0 \
+#    && docker-php-ext-enable memcached
 
 COPY ./zend-loader-php5.6-linux-x86_64_update1.tar.gz /tmp/zend-loader.tar.gz
 RUN mkdir -p /usr/local/zend-loader \
