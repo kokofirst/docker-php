@@ -12,6 +12,7 @@ FROM kokofirst/docker-php:7.3-fpm
 # 5. Line `&& :\` is just for better reading and do nothing.
 RUN apt-get update \
     && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
+	&& apt-get install --assume-yes apt-utils \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
     && :\
@@ -102,15 +103,15 @@ RUN pecl install redis \
     && :\
     && apt-get install -y libmagickwand-dev \
     && pecl install imagick \
-    && docker-php-ext-enable imagick \
-    && :\
-    && apt-get install -y libmemcached-dev zlib1g-dev \
-    && pecl install memcached \
-    && docker-php-ext-enable memcached \
-	&& :\
-	&& apt-get install -y librabbitmq-dev \
-	&& pecl install amqp \
-	&& docker-php-ext-enable amqp
+    && docker-php-ext-enable imagick
+#    && :\
+#    && apt-get install -y libmemcached-dev zlib1g-dev \
+#    && pecl install memcached \
+#    && docker-php-ext-enable memcached \
+#	&& :\
+#	&& apt-get install -y librabbitmq-dev \
+#	&& pecl install amqp \
+#	&& docker-php-ext-enable amqp
 
 # Composer
 RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');" \
