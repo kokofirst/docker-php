@@ -42,7 +42,7 @@ RUN apt-get update \
     && docker-php-ext-install sysvmsg \
     && docker-php-ext-install sysvsem \
     && docker-php-ext-install sysvshm \
-    && docker-php-ext-install opcache \
+    && docker-php-ext-install opcache
     #&& docker-php-ext-install pdo_firebird \
     #&& docker-php-ext-install pdo_dblib \
     #&& docker-php-ext-install pdo_oci \
@@ -53,9 +53,6 @@ RUN apt-get update \
     #&& docker-php-ext-install odbc \
     #&& docker-php-ext-install dba \
     #&& docker-php-ext-install interbase \
-    #&& :\
-    && apt-get install -y libmcrypt-dev \
-    && docker-php-ext-install mcrypt \
     #&& :\
     #&& apt-get install -y libreadline-dev \
     #&& docker-php-ext-install readline \
@@ -90,18 +87,23 @@ RUN apt-get update \
     #&& apt-get install -y libldap2-dev \
     #&& docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
     #&& docker-php-ext-install ldap \
+    #&& :\
 
-RUN pecl install redis \
+RUN apt-get install -y libmcrypt-dev \
+    && pecl install mcrypt-1.0.2 \
+    && docker-php-ext-enable mcrypt \
+	&& :\
+	&& pecl install redis \
     && docker-php-ext-enable redis \
     && :\
     && apt-get install -y libmagickwand-dev \
     && pecl install imagick \
     && docker-php-ext-enable imagick \
     && :\
-    && apt-get install -y libmemcached-dev zlib1g-dev \
-    && pecl install memcached \
-    && docker-php-ext-enable memcached \
-	&& :\
+    #&& apt-get install -y libmemcached-dev zlib1g-dev \
+    #&& pecl install memcached \
+    #&& docker-php-ext-enable memcached \
+	#&& :\
 	&& apt-get install -y librabbitmq-dev \
 	&& pecl install amqp \
 	&& docker-php-ext-enable amqp
