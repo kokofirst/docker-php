@@ -54,13 +54,8 @@ RUN apt-get update \
     #&& docker-php-ext-install dba \
     #&& docker-php-ext-install interbase \
     #&& :\
-    #&& apt-get install -y libmcrypt-dev \
-    #&& docker-php-ext-install mcrypt \
-    #&& :\
-    && apt-get install -y curl \
-    && apt-get install -y libcurl3 \
-    && apt-get install -y libcurl4-openssl-dev \
-    && docker-php-ext-install curl 
+    && apt-get install -y libmcrypt-dev \
+    && docker-php-ext-install mcrypt \
     #&& :\
     #&& apt-get install -y libreadline-dev \
     #&& docker-php-ext-install readline \
@@ -101,15 +96,15 @@ RUN pecl install redis \
     && :\
     && apt-get install -y libmagickwand-dev \
     && pecl install imagick \
-    && docker-php-ext-enable imagick
-#    && :\
-#    && apt-get install -y libmemcached-dev zlib1g-dev \
-#    && pecl install memcached \
-#    && docker-php-ext-enable memcached \
-#	&& :\
-#	&& apt-get install -y librabbitmq-dev \
-#	&& pecl install amqp \
-#	&& docker-php-ext-enable amqp
+    && docker-php-ext-enable imagick \
+    && :\
+    && apt-get install -y libmemcached-dev zlib1g-dev \
+    && pecl install memcached \
+    && docker-php-ext-enable memcached \
+	&& :\
+	&& apt-get install -y librabbitmq-dev \
+	&& pecl install amqp \
+	&& docker-php-ext-enable amqp
 
 # Composer
 RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');" \
