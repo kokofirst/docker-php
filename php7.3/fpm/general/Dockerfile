@@ -12,7 +12,6 @@ FROM kokofirst/docker-php:7.3-fpm
 # 5. Line `&& :\` is just for better reading and do nothing.
 RUN apt-get update \
     && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
-	&& apt-get install --assume-yes apt-utils \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
     && :\
@@ -29,7 +28,6 @@ RUN apt-get update \
     && apt-get install -y libbz2-dev \
     && docker-php-ext-install bz2 \
     && :\
-	&& apt-get install -y libzip-dev \
     && docker-php-ext-install zip \
     && docker-php-ext-install pcntl \
     && docker-php-ext-install pdo_mysql \
@@ -44,7 +42,7 @@ RUN apt-get update \
     && docker-php-ext-install sysvmsg \
     && docker-php-ext-install sysvsem \
     && docker-php-ext-install sysvshm \
-    && docker-php-ext-install opcache \
+    && docker-php-ext-install opcache
     #&& docker-php-ext-install pdo_firebird \
     #&& docker-php-ext-install pdo_dblib \
     #&& docker-php-ext-install pdo_oci \
@@ -55,14 +53,6 @@ RUN apt-get update \
     #&& docker-php-ext-install odbc \
     #&& docker-php-ext-install dba \
     #&& docker-php-ext-install interbase \
-    #&& :\
-    #&& apt-get install -y libmcrypt-dev \
-    #&& docker-php-ext-install mcrypt \
-    #&& :\
-    && apt-get install -y curl \
-    && apt-get install -y libcurl3 \
-    && apt-get install -y libcurl4-openssl-dev \
-    && docker-php-ext-install curl 
     #&& :\
     #&& apt-get install -y libreadline-dev \
     #&& docker-php-ext-install readline \
@@ -97,26 +87,31 @@ RUN apt-get update \
     #&& apt-get install -y libldap2-dev \
     #&& docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
     #&& docker-php-ext-install ldap \
+    #&& :\
 
-RUN pecl install redis \
+RUN apt-get install -y libmcrypt-dev \
+    && pecl install mcrypt-1.0.2 \
+    && docker-php-ext-enable mcrypt \
+	&& :\
+	&& pecl install redis \
     && docker-php-ext-enable redis \
     && :\
     && apt-get install -y libmagickwand-dev \
     && pecl install imagick \
-    && docker-php-ext-enable imagick
-#    && :\
-#    && apt-get install -y libmemcached-dev zlib1g-dev \
-#    && pecl install memcached \
-#    && docker-php-ext-enable memcached \
-#	&& :\
-#	&& apt-get install -y librabbitmq-dev \
-#	&& pecl install amqp \
-#	&& docker-php-ext-enable amqp
+    && docker-php-ext-enable imagick \
+    && :\
+    #&& apt-get install -y libmemcached-dev zlib1g-dev \
+    #&& pecl install memcached \
+    #&& docker-php-ext-enable memcached \
+	#&& :\
+	&& apt-get install -y librabbitmq-dev \
+	&& pecl install amqp \
+	&& docker-php-ext-enable amqp
 
 # Composer
-RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');" \
-    && php composer-setup.php \
-    && php -r "unlink('composer-setup.php');" \
-    && mv composer.phar /bin/composer \
-    && composer config -g repo.packagist composer https://packagist.phpcomposer.com
+#RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');" \
+#    && php composer-setup.php \
+#    && php -r "unlink('composer-setup.php');" \
+#    && mv composer.phar /bin/composer \
+#    && composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
