@@ -29,7 +29,7 @@ RUN apt-get update \
     && apt-get install -y libbz2-dev \
     && docker-php-ext-install bz2 \
     && :\
-    && apt-get install -y libzip-dev \
+    && apt-get install -y libzip-dev \                                    
     && docker-php-ext-install zip \
     && docker-php-ext-install pcntl \
     && docker-php-ext-install pdo_mysql \
@@ -44,7 +44,7 @@ RUN apt-get update \
     && docker-php-ext-install sysvmsg \
     && docker-php-ext-install sysvsem \
     && docker-php-ext-install sysvshm \
-    && docker-php-ext-install opcache \
+    && docker-php-ext-install opcache
     #&& docker-php-ext-install pdo_firebird \
     #&& docker-php-ext-install pdo_dblib \
     #&& docker-php-ext-install pdo_oci \
@@ -59,10 +59,10 @@ RUN apt-get update \
     #&& apt-get install -y libmcrypt-dev \
     #&& docker-php-ext-install mcrypt \
     #&& :\
-    && apt-get install -y curl \
-    && apt-get install -y libcurl3 \
-    && apt-get install -y libcurl4-openssl-dev \
-    && docker-php-ext-install curl
+    #&& apt-get install -y curl \
+    #&& apt-get install -y libcurl3 \
+    #&& apt-get install -y libcurl4-openssl-dev \
+    #&& docker-php-ext-install curl
 	#&& :\    #&& apt-get install -y libreadline-dev \
     #&& docker-php-ext-install readline \
     #&& :\
