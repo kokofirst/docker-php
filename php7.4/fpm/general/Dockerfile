@@ -1,4 +1,4 @@
-FROM kokofirst/docker-php:7.4-fpm
+FROM kokofirst/docker-php:7.4-fpm-base
 
 # Extensions: ctype, dom, fileinfo, ftp, hash, iconv, json, pdo, pdo_sqlite, session,
 # tokenizer, simplexml, xml, xmlreader, xmlwriter and phar are bundled and compiled into
