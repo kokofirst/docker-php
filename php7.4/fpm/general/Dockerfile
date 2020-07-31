@@ -1,4 +1,4 @@
-FROM kokofirst/docker-php:7.4-fpm-base
+FROM php:7.4-fpm
 
 # Extensions: ctype, dom, fileinfo, ftp, hash, iconv, json, pdo, pdo_sqlite, session,
 # tokenizer, simplexml, xml, xmlreader, xmlwriter and phar are bundled and compiled into
@@ -124,3 +124,9 @@ RUN apt-get install -y libmcrypt-dev \
 #    && mv composer.phar /bin/composer \
 #    && composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
+# RUN usermod -u 2200 www-data && groupmod -g 2200 www-data
+
+# WORKDIR /data/wwwroot
+
+# ENV TZ=Asia/Shanghai
+# RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
