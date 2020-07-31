@@ -11,9 +11,8 @@ FROM php:7.4-fpm
 # 4. xml, xmlrpc, wddx require libxml2-dev and libxslt-dev.
 # 5. Line `&& :\` is just for better reading and do nothing.
 RUN apt-get update \
-    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
+    && apt-get install -y libonig-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
     && apt-get install --assume-yes apt-utils \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
     && :\
     && apt-get install -y libicu-dev \
@@ -24,7 +23,7 @@ RUN apt-get update \
     && docker-php-ext-install soap \
     && docker-php-ext-install xsl \
     && docker-php-ext-install xmlrpc \
-    && docker-php-ext-install wddx \
+    #&& docker-php-ext-install wddx \
     && :\
     && apt-get install -y libbz2-dev \
     && docker-php-ext-install bz2 \
@@ -99,7 +98,7 @@ RUN apt-get update \
     #&& :\
 
 RUN apt-get install -y libmcrypt-dev \
-    && pecl install mcrypt-1.0.2 \
+    && pecl install mcrypt-1.0.3 \
     && docker-php-ext-enable mcrypt \
 	&& :\
 	&& pecl install redis \
