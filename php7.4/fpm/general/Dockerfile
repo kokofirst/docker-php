@@ -23,7 +23,7 @@ RUN apt-get update \
     && docker-php-ext-install soap \
     && docker-php-ext-install xsl \
     && docker-php-ext-install xmlrpc \
-    && docker-php-ext-install wddx \
+    #&& docker-php-ext-install wddx \
     && :\
     && apt-get install -y libbz2-dev \
     && docker-php-ext-install bz2 \
