@@ -98,7 +98,7 @@ RUN apt-get update \
     #&& :\
 
 RUN apt-get install -y libmcrypt-dev \
-    && pecl install mcrypt-1.0.2 \
+    && pecl install mcrypt-1.0.3 \
     && docker-php-ext-enable mcrypt \
 	&& :\
 	&& pecl install redis \
