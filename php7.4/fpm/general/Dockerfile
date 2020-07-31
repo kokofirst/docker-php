@@ -11,7 +11,7 @@ FROM php:7.4-fpm
 # 4. xml, xmlrpc, wddx require libxml2-dev and libxslt-dev.
 # 5. Line `&& :\` is just for better reading and do nothing.
 RUN apt-get update \
-    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
+    && apt-get install -y libonig-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
     && apt-get install --assume-yes apt-utils \
     && docker-php-ext-install gd \
     && :\
