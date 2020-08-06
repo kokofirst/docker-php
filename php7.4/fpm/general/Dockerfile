@@ -22,7 +22,6 @@ RUN apt-get update \
 	&& docker-php-ext-install -j$(nproc) soap \
 	                                     xsl \
 										 xmlrpc \
-										 wddx \
 	&& :\
 	&& docker-php-ext-install -j$(nproc) iconv \
                                          pdo_mysql \
