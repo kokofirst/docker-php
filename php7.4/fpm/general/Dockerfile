@@ -3,9 +3,7 @@ FROM php:7.4-fpm
 RUN apt-get update \
     && apt-get install -y build-essential \
 	&& :\
-	&& apt-get install --assume-yes apt-utils \
-	&& :\
-	&& apt-get install -y libmagickcore-dev libmagickwand-dev imagemagick libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
+	&& apt-get install -y libmagickcore-dev libmagickwand-dev imagemagick libfreetype6-dev libjpeg62-turbo-dev libpng-dev libwebp-dev \
 	&& docker-php-ext-configure gd  --with-webp=/usr/include/webp --with-jpeg=/usr/include --with-freetype=/usr/include/freetype2/ \
 	&& docker-php-ext-install -j$(nproc) gd \
 	&& pecl install imagick \
