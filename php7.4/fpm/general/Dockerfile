@@ -23,6 +23,9 @@ RUN apt-get update \
 	                                     xsl \
 										 xmlrpc \
 	&& :\
+	&& apt-get install -y libonig-dev \
+	&& docker-php-ext-install -j$(nproc) mbstring \
+	&& :\
 	&& docker-php-ext-install -j$(nproc) iconv \
                                          pdo_mysql \
 										 mysqli \
@@ -37,7 +40,6 @@ RUN apt-get update \
 										 sysvmsg \
 										 sysvsem \
 										 sysvshm \
-										 mbstring \
 	&& :\
 	&& apt-get install -y libmcrypt-dev \
 	&& pecl install mcrypt \
